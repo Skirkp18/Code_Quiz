@@ -18,10 +18,13 @@ var sfxWrong = new Audio("assets/sfx/incorrect.wav");
 
 function startQuiz() {
   // hide start screen
+  document.querySelector("#start-screen").setAttribute("class", "hide");
  
   // un-hide questions section
+  questionsEl.setAttribute("class", "");
 
   // start timer
+
 
   // show starting time
 
@@ -30,6 +33,7 @@ function startQuiz() {
 
 function getQuestion() {
   // get current question object from array
+  document.querySelector("#question-title");
 
   // update title with current question
 
