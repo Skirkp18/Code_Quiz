@@ -16,6 +16,8 @@ var feedbackEl = document.getElementById("feedback");
 var sfxRight = new Audio("assets/sfx/correct.wav");
 var sfxWrong = new Audio("assets/sfx/incorrect.wav");
 
+var currentQuestionNumber = 0;
+
 function startQuiz() {
   // hide start screen
   document.querySelector("#start-screen").setAttribute("class", "hide");
@@ -33,19 +35,28 @@ function startQuiz() {
 
 function getQuestion() {
   // get current question object from array
-  document.querySelector("#question-title");
-
+  var currentQuestion = questions[currentQuestionNumber];
+  
   // update title with current question
-
+  document.getElementById("question-title").innerHTML = currentQuestion["title"];
+  
+  // console.log(currentQuestion)
+  console.log(currentQuestion);
+  
   // clear out any old question choices
+  document.getElementById("choices").innerHTML = "";
 
   // loop over choices
+  for (var i = 0; i <= 4; i++) {
+	 
 
     // create new button for each choice
+	document.getElementById("choice").appendChild("<button>")
 
     // attach click event listener to each choice
 
     // display on the page
+}
 }
 
 function questionClick() {
