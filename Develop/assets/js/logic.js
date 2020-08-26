@@ -1,7 +1,7 @@
 // variables to keep track of quiz state
 var currentQuestionIndex = 0;
 var time = questions.length * 15;
-var timerId;
+var timerId = 0;
 
 // variables to reference DOM elements
 var questionsEl = document.getElementById("questions");
@@ -16,8 +16,6 @@ var feedbackEl = document.getElementById("feedback");
 var sfxRight = new Audio("assets/sfx/correct.wav");
 var sfxWrong = new Audio("assets/sfx/incorrect.wav");
 
-var currentQuestionNumber = 0;
-
 function startQuiz() {
   // hide start screen
   document.querySelector("#start-screen").setAttribute("class", "hide");
@@ -26,16 +24,23 @@ function startQuiz() {
   questionsEl.setAttribute("class", "");
 
   // start timer
+  setInterval(function() {
+  timerId++;
+    // show starting time
+  timerEl.textContent = timerId;
 
+  console.log(timerId);
 
-  // show starting time
+  }, 1000);
+
+  
 
   getQuestion();
 }
 
 function getQuestion() {
   // get current question object from array
-  var currentQuestion = questions[currentQuestionNumber];
+  var currentQuestion = questions[currentQuestionIndex];
   
   // update title with current question
   document.getElementById("question-title").innerHTML = currentQuestion["title"];
@@ -47,20 +52,28 @@ function getQuestion() {
   document.getElementById("choices").innerHTML = "";
 
   // loop over choices
-  for (var i = 0; i <= 4; i++) {
-	 
+  for (var i = 0; i < currentQuestion.choices.length; i++) {
 
-    // create new button for each choice
-	document.getElementById("choice").appendChild("<button>")
+ // create new button for each choice
+  var button = document.createElement("button");
+  
+  // attach click event listener to each choice
 
-    // attach click event listener to each choice
+  button.addEventListener("click", questionClick());
 
-    // display on the page
+  // display on the page
+
+  button.textContent = currentQuestion.choices[i];
+
+  choicesEl.appendChild(button);
 }
 }
 
-function questionClick() {
+function questionClick(event) {
+  // event.preventDefault();
+
   // check if user guessed wrong
+  // if (event.target.matches(cur)
     // penalize time
 
     // display new time on page
