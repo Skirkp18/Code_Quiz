@@ -29,7 +29,7 @@ function startQuiz() {
     // show starting time
     timerEl.textContent = timerId;
 
-    console.log(timerId);
+    // console.log(timerId);
 
   }, 1000);
 
@@ -46,7 +46,7 @@ function getQuestion() {
   document.getElementById("question-title").innerHTML = currentQuestion["title"];
 
   // console.log(currentQuestion)
-  console.log(currentQuestion);
+  // console.log(currentQuestion);
 
   // clear out any old question choices
   document.getElementById("choices").innerHTML = "";
@@ -80,9 +80,10 @@ function questionClick(event) {
   // check if user guessed wrong
   if (element !== currentQuestion.answer) {
     
-  console.log("wrong");
-    // penalize time
+  // console.log("wrong");
 
+    // penalize time
+ 
     // display new time on page
 
     // play "wrong" sound effect
@@ -91,7 +92,7 @@ function questionClick(event) {
   }
   // else 
   else {
-    console.log("right");
+    // console.log("right");
 
     // play "right" sound effect
 
@@ -103,22 +104,41 @@ function questionClick(event) {
 
     // move to next question
 
+    currentQuestionIndex++;
+    console.log(currentQuestionIndex);
+    
+
+
     // check if we've run out of questions
+    if (currentQuestionIndex >= questions.length) {
+      
     // quizEnd
+    quizEnd();
+    }
     // else 
+    else {
+      
     // getQuestion
-  
+    getQuestion();
+    }
+    
 }
 
 
 function quizEnd() {
+  console.log("end");
+  
   // stop timer
 
   // show end screen
+  document.querySelector("#end-screen").setAttribute("class", "");
 
   // show final score
 
   // hide questions section
+
+  document.querySelector("#questions").setAttribute("class", "hide");
+
 }
 
 function clockTick() {
