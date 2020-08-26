@@ -107,6 +107,20 @@ function questionClick(event) {
 
 
     // flash right/wrong feedback on page for half a second
+    if (element !== currentQuestion.answer) {
+      feedbackEl.textContent = "Wrong! Minus 10 Seconds";
+      feedbackEl.setAttribute("class", "Feeback");
+      setTimeout(function() {
+        feedbackEl.setAttribute("class", "feeback hide")
+      }, 1000);
+    }
+    else {
+      feedbackEl.textContent = "Correct! Good Job";
+      feedbackEl.setAttribute("class", "feedback");
+      setTimeout(function() {
+        feedbackEl.setAttribute("class", "feeback hide")
+      }, 1000);
+    }
 
     // move to next question
 
