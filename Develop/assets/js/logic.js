@@ -1,7 +1,7 @@
 // variables to keep track of quiz state
 var currentQuestionIndex = 0;
 var time = questions.length * 15;
-var timerId = 0;
+var timerId = 60;
 
 // variables to reference DOM elements
 var questionsEl = document.getElementById("questions");
@@ -23,19 +23,20 @@ function startQuiz() {
   // un-hide questions section
   questionsEl.setAttribute("class", "");
 
-  // start timer
-  setInterval(function () {
-    timerId++;
-    // show starting time
-    timerEl.textContent = timerId;
-
-    // console.log(timerId);
-
-  }, 1000);
-
-
-
   getQuestion();
+  startTimer();
+}
+
+function startTimer () {
+    // start timer
+    timerInterval = setInterval(function () {
+      timerId--;
+      // show starting time
+      timerEl.textContent = timerId;
+  
+      // console.log(timerId);
+  
+    }, 1000);
 }
 
 function getQuestion() {
@@ -83,8 +84,13 @@ function questionClick(event) {
   // console.log("wrong");
 
     // penalize time
- 
-    // display new time on page
+    clearInterval(timerInterval);
+     timerId = timerId - 10;
+     console.log(timerId);
+
+    //  display on screen
+
+    startTimer();
 
     // play "wrong" sound effect
     sfxWrong.play();
@@ -127,8 +133,9 @@ function questionClick(event) {
 
 function quizEnd() {
   console.log("end");
-  
+
   // stop timer
+  clearInterval(timerInterval);
 
   // show end screen
   document.querySelector("#end-screen").setAttribute("class", "");
