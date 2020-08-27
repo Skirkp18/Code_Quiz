@@ -1,7 +1,8 @@
 // variables to keep track of quiz state
 var currentQuestionIndex = 0;
 var time = questions.length * 15;
-var timerId = 60;
+var timerId = 50;
+var score = 50;
 
 // variables to reference DOM elements
 var questionsEl = document.getElementById("questions");
@@ -27,21 +28,28 @@ function startQuiz() {
   startTimer();
 }
 
-function startTimer () {
-    // start timer
-    timerInterval = setInterval(function () {
-      timerId--;
-      // show starting time
-      timerEl.textContent = timerId;
-  
-      // console.log(timerId);
-  
-    }, 1000);
+function startTimer() {
+  // start timer
+  timerInterval = setInterval(function () {
+    timerId--;
+    // show starting time
+    timerEl.textContent = timerId;
+
+    // console.log(timerId);
+
+    if (timerId <= 0) {
+      clearInterval(timerInterval);
+      timerEl.textContent = 0;
+      quizEnd();
+    }
+
+  }, 1000);
+
 }
 
 function getQuestion() {
   // get current question object from array
-   currentQuestion = questions[currentQuestionIndex];
+  currentQuestion = questions[currentQuestionIndex];
 
   // update title with current question
   document.getElementById("question-title").innerHTML = currentQuestion["title"];
@@ -60,7 +68,7 @@ function getQuestion() {
 
     // attach click event listener to each choice
 
-    button.addEventListener("click", function(event) {
+    button.addEventListener("click", function (event) {
       element = event.target.innerHTML;
       questionClick();
     });
@@ -75,18 +83,17 @@ function getQuestion() {
 
 function questionClick(event) {
 
-  console.log(element);
-  console.log(currentQuestion.answer);
+  // console.log(element);
+  // console.log(currentQuestion.answer);
 
   // check if user guessed wrong
   if (element !== currentQuestion.answer) {
-    
-  // console.log("wrong");
+
+    // console.log("wrong");
 
     // penalize time
-    clearInterval(timerInterval);
-     timerId = timerId - 10;
-     console.log(timerId);
+    clockTick();
+    score = score - 10;
 
     //  display on screen
 
@@ -94,7 +101,7 @@ function questionClick(event) {
 
     // play "wrong" sound effect
     sfxWrong.play();
-  
+
   }
   // else 
   else {
@@ -106,42 +113,42 @@ function questionClick(event) {
   }
 
 
-    // flash right/wrong feedback on page for half a second
-    if (element !== currentQuestion.answer) {
-      feedbackEl.textContent = "Wrong! Minus 10 Seconds";
-      feedbackEl.setAttribute("class", "Feeback");
-      setTimeout(function() {
-        feedbackEl.setAttribute("class", "feeback hide")
-      }, 1000);
-    }
-    else {
-      feedbackEl.textContent = "Correct! Good Job";
-      feedbackEl.setAttribute("class", "feedback");
-      setTimeout(function() {
-        feedbackEl.setAttribute("class", "feeback hide")
-      }, 1000);
-    }
+  // flash right/wrong feedback on page for half a second
+  if (element !== currentQuestion.answer) {
+    feedbackEl.textContent = "Wrong! Minus 10 Seconds";
+    feedbackEl.setAttribute("class", "feedback");
+    setTimeout(function () {
+      feedbackEl.setAttribute("class", "feeback hide")
+    }, 1000);
+  }
+  else {
+    feedbackEl.textContent = "Correct! Good Job";
+    feedbackEl.setAttribute("class", "feedback");
+    setTimeout(function () {
+      feedbackEl.setAttribute("class", "feeback hide")
+    }, 1000);
+  }
 
-    // move to next question
+  // move to next question
 
-    currentQuestionIndex++;
-    console.log(currentQuestionIndex);
-    
+  currentQuestionIndex++;
+  // console.log(currentQuestionIndex);
 
 
-    // check if we've run out of questions
-    if (currentQuestionIndex >= questions.length) {
-      
+
+  // check if we've run out of questions
+  if (currentQuestionIndex >= questions.length) {
+
     // quizEnd
     quizEnd();
-    }
-    // else 
-    else {
-      
+  }
+  // else 
+  else {
+
     // getQuestion
     getQuestion();
-    }
-    
+  }
+
 }
 
 
@@ -155,7 +162,15 @@ function quizEnd() {
   document.querySelector("#end-screen").setAttribute("class", "");
 
   // show final score
+  if (timerId <= 0) {
+    var finalScore = 0;
+    timerEl.textContent = 0;
+  }
+  else {
+    var finalScore = score + timerId;
+  }
 
+  document.querySelector("#final-score").textContent = finalScore;
   // hide questions section
 
   document.querySelector("#questions").setAttribute("class", "hide");
@@ -164,8 +179,9 @@ function quizEnd() {
 
 function clockTick() {
   // update time
-
-  // check if user ran out of time
+  clearInterval(timerInterval);
+  timerId = timerId - 10;
+  //  console.log(timerId);
 }
 
 function saveHighscore() {
