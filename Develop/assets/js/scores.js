@@ -22,6 +22,10 @@ console.log(parsedHighScores);
   // for each score
   for (var i = 0; i < parsedHighScores.length; i++){
     console.log("here");
+    // var player = parsedHighScores.player[1];
+    // var score = parsedHighScores.score[1];
+    // console.log(player);
+    // console.log(score);
   
     // create li tag for each high score
     var li = document.createElement("li");
