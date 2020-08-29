@@ -185,7 +185,7 @@ function clockTick() {
 }
 
 function saveHighscore(event) {
-  // event.preventDefault();
+  event.preventDefault();
 
   // get value of input box
   var initialsInput = initialsEl.value.trim();
@@ -221,10 +221,15 @@ function saveHighscore(event) {
  
 }
 
-function checkForEnter(event) {
-  // check if event key is enter
-  
-  // saveHighscore
+function checkForEnter() {
+	
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    submitBtn.click();
+}
 }
 
 // user clicks button to submit initials
