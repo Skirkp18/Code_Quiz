@@ -189,7 +189,7 @@ function saveHighscore(event) {
 
   // get value of input box
   var initialsInput = initialsEl.value.trim();
-  console.log(initialsInput);
+  // console.log(initialsInput);
 
   // make sure value wasn't empty
   if (initialsInput === "") {
@@ -205,20 +205,19 @@ function saveHighscore(event) {
   
 
   // format new score object for current user
-   newScore = {
-    Player: initialsInput,
-    Score: finalScore,
-   }
+   newScore = initialsInput + " " + finalScore;
+   console.log(newScore);
+	
   // save to localstorage
   savedHighScoresObj.push(newScore);
-  console.log(savedHighScoresObj)
+  console.log(savedHighScoresObj);
 
   localStorage.setItem("savedScores", JSON.stringify(savedHighScoresObj));
 
 
 
   // redirect to next page
-  // location.href = "highscores.html";
+  location.href = "highscores.html";
  
 }
 
