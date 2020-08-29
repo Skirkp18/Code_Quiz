@@ -1,8 +1,9 @@
 // variables to keep track of quiz state
 var currentQuestionIndex = 0;
-var time = questions.length * 15;
 var timerId = 50;
 var score = 50;
+var finalScore = 0;
+// var savedHighScores = [];
 
 // variables to reference DOM elements
 var questionsEl = document.getElementById("questions");
@@ -81,7 +82,7 @@ function getQuestion() {
   }
 }
 
-function questionClick(event) {
+function questionClick() {
 
   // console.log(element);
   // console.log(currentQuestion.answer);
@@ -163,11 +164,10 @@ function quizEnd() {
 
   // show final score
   if (timerId <= 0) {
-    var finalScore = 0;
     timerEl.textContent = 0;
   }
   else {
-    var finalScore = score + timerId;
+   finalScore = score + timerId;
   }
 
   document.querySelector("#final-score").textContent = finalScore;
@@ -184,21 +184,47 @@ function clockTick() {
   //  console.log(timerId);
 }
 
-function saveHighscore() {
+function saveHighscore(event) {
+  // event.preventDefault();
+
   // get value of input box
+  var initialsInput = initialsEl.value.trim();
+  console.log(initialsInput);
 
   // make sure value wasn't empty
+  if (initialsInput === "") {
+    alert("must enter initials");
+    return;
+  }
   // get saved scores from localstorage, or if not any, set to empty array
+  savedHighScores = localStorage.getItem("savedScores");
+  savedHighScoresObj = JSON.parse(savedHighScores);
+  if (savedHighScores === null) {
+    savedHighScoresObj = [];
+  }
+  
 
   // format new score object for current user
-
+   newScore = {
+    Player: initialsInput,
+    Score: finalScore,
+   }
   // save to localstorage
+  savedHighScoresObj.push(newScore);
+  console.log(savedHighScoresObj)
+
+  localStorage.setItem("savedScores", JSON.stringify(savedHighScoresObj));
+
+
 
   // redirect to next page
+  // location.href = "highscores.html";
+ 
 }
 
 function checkForEnter(event) {
   // check if event key is enter
+  
   // saveHighscore
 }
 
