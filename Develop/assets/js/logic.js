@@ -3,7 +3,7 @@ var currentQuestionIndex = 0;
 var timerId = 50;
 var score = 50;
 var finalScore = 0;
-// var savedHighScores = [];
+
 
 // variables to reference DOM elements
 var questionsEl = document.getElementById("questions");
@@ -55,9 +55,6 @@ function getQuestion() {
   // update title with current question
   document.getElementById("question-title").innerHTML = currentQuestion["title"];
 
-  // console.log(currentQuestion)
-  // console.log(currentQuestion);
-
   // clear out any old question choices
   document.getElementById("choices").innerHTML = "";
 
@@ -84,9 +81,6 @@ function getQuestion() {
 
 function questionClick() {
 
-  // console.log(element);
-  // console.log(currentQuestion.answer);
-
   // check if user guessed wrong
   if (element !== currentQuestion.answer) {
 
@@ -106,7 +100,6 @@ function questionClick() {
   }
   // else 
   else {
-    // console.log("right");
 
     // play "right" sound effect
 
@@ -133,9 +126,6 @@ function questionClick() {
   // move to next question
 
   currentQuestionIndex++;
-  // console.log(currentQuestionIndex);
-
-
 
   // check if we've run out of questions
   if (currentQuestionIndex >= questions.length) {
@@ -181,7 +171,6 @@ function clockTick() {
   // update time
   clearInterval(timerInterval);
   timerId = timerId - 10;
-  //  console.log(timerId);
 }
 
 function saveHighscore(event) {
@@ -189,7 +178,6 @@ function saveHighscore(event) {
 
   // get value of input box
   var initialsInput = initialsEl.value.trim();
-  // console.log(initialsInput);
 
   // make sure value wasn't empty
   if (initialsInput === "") {
@@ -206,11 +194,9 @@ function saveHighscore(event) {
 
   // format new score object for current user
    newScore = initialsInput + " " + finalScore;
-   console.log(newScore);
 	
   // save to localstorage
   savedHighScoresObj.push(newScore);
-  console.log(savedHighScoresObj);
 
   localStorage.setItem("savedScores", JSON.stringify(savedHighScoresObj));
 
