@@ -1,4 +1,4 @@
-// variables to keep track of quiz state
+""// variables to keep track of quiz state
 var currentQuestionIndex = 0;
 var timerId = 50;
 var score = 50;
@@ -144,7 +144,6 @@ function questionClick() {
 
 
 function quizEnd() {
-  console.log("end");
 
   // stop timer
   clearInterval(timerInterval);

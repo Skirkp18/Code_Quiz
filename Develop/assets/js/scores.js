@@ -9,7 +9,6 @@ var parsedHighScores = JSON.parse(highScores);
 } 
 else {
   var highScores = [];
-  console.log("no scores yet");
 }
 
  
